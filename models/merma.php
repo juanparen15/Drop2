@@ -9,6 +9,7 @@ class Merma
   private $idTipoMerma;
   private $idProducto;
   private $perdida;
+  private $restaurante;
   // private $created_at;
   // private $updated_at;
 
@@ -72,6 +73,15 @@ class Merma
     $this->perdida = $this->db->real_escape_string($perdida);
   }
 
+  function getRestaurante()
+  {
+    return $this->restaurante;
+  }
+  function setRestaurante($restaurante)
+  {
+    $this->restaurante = $this->db->real_escape_string($restaurante);
+  }
+
   // function getCreated_at()
   // {
   //   return $this->created_at;
@@ -120,16 +130,28 @@ class Merma
   //Registrar
   public function save()
   {
-    $sql = "INSERT INTO merma VALUES (NULL, '{$this->getCantidad()}', '{$this->getPerdida()}', '{$this->getIdTipoMerma()}', {$_SESSION['identity']->idrestaurante}, '{$this->getIdProducto()}')";
-    $saved = $this->db->query($sql);
-    if (!$saved) {
-      echo $this->db->error;
-    }
-    $result = false;
-    if ($saved) {
-      $result = true;
-    }
+    $sql = "INSERT INTO merma (cantidadMerma, tipoMerma_idtipoMerma, producto_idproducto, perdida, restaurante_idrestaurante ) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("diidi", $this->getCantidad(), $this->getIdTipoMerma(), $this->getIdProducto(), $this->getPerdida(), $this->getRestaurante());
+
+    $result = $stmt->execute();
+    $stmt->close();
+
     return $result;
+
+
+
+    // $sql = "INSERT INTO merma VALUES ('{$this->getCantidad()}', '{$this->getPerdida()}', '{$this->getIdTipoMerma()}', {$_SESSION['identity']->idrestaurante}, '{$this->getIdProducto()}')";
+    // $saved = $this->db->query($sql);
+
+    // if ($saved) {
+    //   $result = true;
+    // } else {
+    //   echo "Error en la consulta: " . $this->db->error;
+    //   $result = false;
+    // }
+
+    // return $result;
   }
   // Editar
   public function update()

@@ -58,8 +58,10 @@ class MermaController
         // $rrr = $m->findProductoID();
         $rrr = $p->findProductoID();
         //
-        $cantActual = $rrr->precioProducto;
-        $newCant = $cantActual - ($_POST['cantidad']);
+        // $cantActual = $rrr->precioProducto;
+        // $newCant = $cantActual - ($_POST['cantidad']);
+        // $restaurante = $rrr->restaurante_idrestaurante;
+        $newCant = ($_POST['cantidad']);
         if ($newCant < 0) {
           $_SESSION['saveEdit'] = 'Yuca';
           header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
@@ -67,9 +69,10 @@ class MermaController
         }
         //
         $merma->setIdMerma($_GET['id']);
-        $merma->setIdProducto($rrr->producto_idproducto);
+        $merma->setIdProducto($_POST['producto']);
         $merma->setCantidad($newCant);
         $merma->setIdTipoMerma($_POST['tipoMerma']);
+        // $merma->setRestaurante($restaurante);
         // $merma->setMotivo($_POST['motivo']);
       }
       // $merma->setIdProducto($_POST['producto']);
@@ -84,11 +87,17 @@ class MermaController
         $result = $p->findProductoID();
         $precio = $result->precioProducto;
         $perdida = $precio - $cantidad;
-        $merma->setPerdida($perdida);
+        if ($merma->getPerdida() < 0) {
+          $_SESSION['saveEdit'] = 'Yuca';
+          header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
+          // $merma->setPerdida($perdida);
+          die();
+        } else {
+          $merma->setPerdida($perdida);
+        }
         $p->setPrecio($perdida);
-      } else {
-        $merma->setPerdida(0);
       }
+
       // Realizamos el Registro
       if (isset($_GET['id'])) {
         $save = $merma->update();

@@ -152,7 +152,7 @@ define('tittleProducto', 'Control de Deudores');
 define('formTittleProducto1', 'Nuevo Prestamo');
 define('formTittleProducto2', 'Editar ID Deudor Nº ');
 define('selectNombreDeudor', 'Nombre Deudor');
-define('nombreProducto', 'Nombre Deudor');
+define('nombreProducto', 'Seleccionar Deudor');
 define('precioProducto', 'Prestamo Deudor');
 define('mesesProducto', '¿A cuantos meses?');
 define('numeroMeses', 'Numero de meses');
