@@ -130,9 +130,9 @@ class Merma
   //Registrar
   public function save()
   {
-    $sql = "INSERT INTO merma (cantidadMerma, tipoMerma_idtipoMerma, producto_idproducto, perdida, restaurante_idrestaurante ) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO merma (cantidadMerma, perdida, tipoMerma_idtipoMerma, producto_idproducto ) VALUES (?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("diidi", $this->getCantidad(), $this->getIdTipoMerma(), $this->getIdProducto(), $this->getPerdida(), $this->getRestaurante());
+    $stmt->bind_param("ddiii", $this->getCantidad(), $this->getPerdida(), $this->getIdTipoMerma(), $this->getIdProducto());
 
     $result = $stmt->execute();
     $stmt->close();

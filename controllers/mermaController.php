@@ -48,6 +48,33 @@ class MermaController
     // Verificamos si hay datos por POST
     if (isset($_POST) && (!empty($_POST['producto']) || !empty($_GET['id'])) && !empty($_POST['cantidad']) && !empty($_POST['tipoMerma'])) {
 
+
+      // $rrr = $p->findProductoID();
+
+      // $cantActual = $rrr->precioProducto;
+
+      // $restante = $cantActual - ($_POST['cantidad']);
+      // $restaurante = $rrr->restaurante_idrestaurante;
+
+
+      // $merma->setCantidad($_POST['cantidad']);
+      // $merma->setIdTipoMerma($_POST['tipoMerma']);
+      // $merma->setPerdida($restante);
+      // $merma->setRestaurante($restaurante);
+
+      // if ($merma->setPerdida($restante) < 0) {
+      //   $_SESSION['saveEdit'] = 'Yuca';
+      //   header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
+      //   // $merma->setPerdida($perdida);
+      //   die();
+      // } else {
+      //   $merma->setPerdida($restante);
+      //   die();
+      // }
+      // $merma->setIdMerma($_GET['id']);
+      // $merma->setIdProducto($_POST['producto']);
+
+
       // Creamos el contenedor
       $merma = new Merma();
       // Si esta editando
@@ -57,47 +84,46 @@ class MermaController
         $m->setIdMerma($_GET['id']);
         // $rrr = $m->findProductoID();
         $rrr = $p->findProductoID();
-        //
-        // $cantActual = $rrr->precioProducto;
-        // $newCant = $cantActual - ($_POST['cantidad']);
-        // $restaurante = $rrr->restaurante_idrestaurante;
-        $newCant = ($_POST['cantidad']);
-        if ($newCant < 0) {
+
+        $cantActual = $rrr->precioProducto;
+
+        $restante = $cantActual - ($_POST['cantidad']);
+        $restaurante = $rrr->restaurante_idrestaurante;
+        if ($restante < 0) {
           $_SESSION['saveEdit'] = 'Yuca';
           header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
           die();
         }
         //
-        $merma->setIdMerma($_GET['id']);
-        $merma->setIdProducto($_POST['producto']);
-        $merma->setCantidad($newCant);
+        $merma->setCantidad($_POST['cantidad']);
         $merma->setIdTipoMerma($_POST['tipoMerma']);
-        // $merma->setRestaurante($restaurante);
+        $merma->setPerdida($restante);
+        $merma->setRestaurante($restaurante);
+
+
+        $merma->setIdMerma($_GET['id']);
+        $merma->setIdProducto($rrr->producto_idproducto);
+        // $merma->setCantidad($newCant);
+        $merma->setIdTipoMerma($_POST['tipoMerma']);
         // $merma->setMotivo($_POST['motivo']);
       }
       // $merma->setIdProducto($_POST['producto']);
       // $merma->setCantidad($_POST['cantidad']);
 
       //
-      if ($merma->getIdTipoMerma() == 1 || $merma->getIdTipoMerma() == 2 || $merma->getIdTipoMerma() == 3) {
-        // Calcular Perdida
-        $cantidad = isset($_GET['id']) ? $newCant : $_POST['cantidad'];
-        $p = new Producto();
-        $p->setId(isset($_GET['id']) ? $rrr->producto_idproducto : $_POST['producto']);
-        $result = $p->findProductoID();
-        $precio = $result->precioProducto;
-        $perdida = $precio - $cantidad;
-        if ($merma->getPerdida() < 0) {
-          $_SESSION['saveEdit'] = 'Yuca';
-          header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
-          // $merma->setPerdida($perdida);
-          die();
-        } else {
-          $merma->setPerdida($perdida);
-        }
-        $p->setPrecio($perdida);
-      }
-
+      // if ($merma->getIdTipoMerma() == 1 || $merma->getIdTipoMerma() == 2 || $merma->getIdTipoMerma() == 3) {
+      //   // Calcular Perdida
+      //   $cantidad = isset($_GET['id']) ? $restante : $_POST['cantidad'];
+      //   $p = new Producto();
+      //   $p->setId(isset($_GET['id']) ? $rrr->producto_idproducto : $_POST['producto']);
+      //   $result = $p->findProductoID();
+      //   $precio = $result->precioProducto;
+      //   $perdida = $precio - $cantidad;
+      //   $merma->setPerdida($perdida);
+      //   $p->setPrecio($perdida);
+      // } else {
+      //   $merma->setPerdida(0);
+      // }
       // Realizamos el Registro
       if (isset($_GET['id'])) {
         $save = $merma->update();
