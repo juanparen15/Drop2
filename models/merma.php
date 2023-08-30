@@ -9,7 +9,7 @@ class Merma
   private $idTipoMerma;
   private $idProducto;
   private $perdida;
-  private $restaurante;
+  // private $restaurante;
   // private $created_at;
   // private $updated_at;
 
@@ -26,6 +26,7 @@ class Merma
   {
     $this->idMerma = $idMerma;
   }
+
   // GET - SET Cantidad
   function getCantidad()
   {
@@ -73,14 +74,14 @@ class Merma
     $this->perdida = $this->db->real_escape_string($perdida);
   }
 
-  function getRestaurante()
-  {
-    return $this->restaurante;
-  }
-  function setRestaurante($restaurante)
-  {
-    $this->restaurante = $this->db->real_escape_string($restaurante);
-  }
+  // function getRestaurante()
+  // {
+  //   return $this->restaurante;
+  // }
+  // function setRestaurante($restaurante)
+  // {
+  //   $this->restaurante = $this->db->real_escape_string($restaurante);
+  // }
 
   // function getCreated_at()
   // {
@@ -113,7 +114,7 @@ class Merma
   public function All()
   {
     // Crear Sentencia
-    $sql = "CALL findMerma({$_SESSION['identity']->idrestaurante})";
+    $sql = "CALL findMerma()";
     // Enviamos La Sentencia
     $result = $this->db->query($sql);
     return $result;
@@ -122,7 +123,7 @@ class Merma
   // Consultar Por ID
   public function findMermaID()
   {
-    $sql = "CALL findMermaID({$_SESSION['identity']->idrestaurante}, {$this->getIdMerma()})";
+    $sql = "SELECT * FROM merma WHERE idmerma={$this->getIdMerma()}";
     $producto = $this->db->query($sql);
     return $producto->fetch_object();
   }
@@ -130,9 +131,9 @@ class Merma
   //Registrar
   public function save()
   {
-    $sql = "INSERT INTO merma (cantidadMerma, perdida, tipoMerma_idtipoMerma, producto_idproducto ) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO merma (idmerma, cantidadMerma, perdida, tipoMerma_idtipoMerma, producto_idproducto ) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("ddiii", $this->getCantidad(), $this->getPerdida(), $this->getIdTipoMerma(), $this->getIdProducto());
+    $stmt->bind_param("iddii", $this->getIdMerma(), $this->getCantidad(), $this->getPerdida(), $this->getIdTipoMerma(), $this->getIdProducto());
 
     $result = $stmt->execute();
     $stmt->close();

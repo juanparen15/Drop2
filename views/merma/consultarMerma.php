@@ -46,28 +46,34 @@
             <th scope="col"><?= tipoMerma ?></th>
             <th scope="col"><?= cantidad ?></th>
             <th scope="col"><?= perdida ?></th>
-            <th scope="col"><?= motivo ?></th>
+
             <th scope="col"><?= fechaMerma ?></th>
             <th scope="col"><?= acciones ?></th>
           </tr>
         </thead>
         <tbody>
-        <?php $mer = MermaController::getAll(); ?>
-          <?php while ($merma = $mer->fetch_object()) : ?>
-            <tr>
-              <td><?= $merma->idmerma; ?></td>
-              <td><?= $merma->nombre; ?> <?= $merma->apellido; ?></td>
-              <td>$ <?= $merma->precio; ?></td>
-              <td><?= $merma->tipoMerma; ?></td>
-              <td>$ <?= $merma->cantidadMerma; ?></td>
-              <td>$ <?= $merma->perdida; ?></td>
-              <td><?= $merma->motivoMerma; ?></td>
-              <td><?= $merma->created_at; ?></td>
-              <td class="d-flex justify-content-around d-flex">
-                <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
-                <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
-              </td>
-            </tr>
+          <?php $mer = MermaController::getAll(); ?>
+          <?php $pro = ProductoController::getAll(); ?>
+          <?php $tipo = TipoMermaController::getAll(); ?>
+          <?php while ($producto = $pro->fetch_object()) : ?>
+            <?php while ($tipoMerma = $tipo->fetch_object()) : ?>
+              <?php while ($merma = $mer->fetch_object()) : ?>
+                <tr>
+                  <td><?= $merma->idmerma; ?></td>
+                  <td><?= $producto->nombre; ?> <?= $producto->apellido; ?></td>
+                  <td>$ <?= $producto->precioProducto; ?></td>
+                  <td><?= $tipoMerma->tipoMerma; ?></td>
+                  <td>$ <?= $merma->cantidadMerma; ?></td>
+                  <td>$ <?= $merma->perdida; ?></td>
+
+                  <td><?= $merma->created_at; ?></td>
+                  <td class="d-flex justify-content-around d-flex">
+                    <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
+                    <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
+                  </td>
+                </tr>
+              <?php endwhile; ?>
+            <?php endwhile; ?>
           <?php endwhile; ?>
         </tbody>
       </table>
@@ -102,7 +108,7 @@
           categories: [
             <?php
             foreach ($merma as $m) {
-              ?>
+            ?>
 
               ['<?php echo $m['nombre']; ?>', '<?php echo $m['apellido ']; ?>'],
 
@@ -121,7 +127,7 @@
           data: [
             <?php
             foreach ($merma as $m) {
-              ?>
+            ?>
 
               [<?= $m['cantidadMerma'] ?>],
 

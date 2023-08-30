@@ -46,7 +46,7 @@ class MermaController
   {
     // Utils::isAdmin();
     // Verificamos si hay datos por POST
-    if (isset($_POST) && (!empty($_POST['producto']) || !empty($_GET['id'])) && !empty($_POST['cantidad']) && !empty($_POST['tipoMerma'])) {
+    if (isset($_POST) && (!empty($_POST['producto']))) {
 
 
       // $rrr = $p->findProductoID();
@@ -88,23 +88,23 @@ class MermaController
         $cantActual = $rrr->precioProducto;
 
         $restante = $cantActual - ($_POST['cantidad']);
-        $restaurante = $rrr->restaurante_idrestaurante;
+        // $restaurante = $rrr->restaurante_idrestaurante;
         if ($restante < 0) {
           $_SESSION['saveEdit'] = 'Yuca';
-          header('Location: ' . baseUrl . 'stock/editar&id=' . $_GET['id']);
+          header('Location: ' . baseUrl . 'producto/editar&id=' . $_GET['id']);
           die();
         }
         //
         $merma->setCantidad($_POST['cantidad']);
         $merma->setIdTipoMerma($_POST['tipoMerma']);
         $merma->setPerdida($restante);
-        $merma->setRestaurante($restaurante);
+        // $merma->setRestaurante($restaurante);
 
 
         $merma->setIdMerma($_GET['id']);
         $merma->setIdProducto($rrr->producto_idproducto);
         // $merma->setCantidad($newCant);
-        $merma->setIdTipoMerma($_POST['tipoMerma']);
+        // $merma->setIdTipoMerma($_POST['tipoMerma']);
         // $merma->setMotivo($_POST['motivo']);
       }
       // $merma->setIdProducto($_POST['producto']);
