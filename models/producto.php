@@ -106,6 +106,13 @@ class Producto
     $sql = "SELECT * FROM producto WHERE idproducto={$this->getId()}";
     $producto = $this->db->query($sql);
     return $producto->fetch_object();
+    if ($producto) {
+      $result = true;
+    } else {
+      echo "Error en la consulta: " . $this->db->error;
+      $result = false;
+    }
+    return $result;
   }
 
   // Registrar

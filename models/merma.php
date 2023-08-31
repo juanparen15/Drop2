@@ -9,10 +9,8 @@ class Merma
   private $idTipoMerma;
   private $idProducto;
   private $perdida;
-  // private $restaurante;
-  // private $created_at;
-  // private $updated_at;
 
+  
   public function __construct()
   {
     $this->db = DataBase::conectar();
@@ -46,6 +44,8 @@ class Merma
   // {
   //   $this->motivo = $this->db->real_escape_string($motivo);
   // }
+
+
   // GET - SET Tipo de Merma
   function getIdTipoMerma()
   {
@@ -74,33 +74,6 @@ class Merma
     $this->perdida = $this->db->real_escape_string($perdida);
   }
 
-  // function getRestaurante()
-  // {
-  //   return $this->restaurante;
-  // }
-  // function setRestaurante($restaurante)
-  // {
-  //   $this->restaurante = $this->db->real_escape_string($restaurante);
-  // }
-
-  // function getCreated_at()
-  // {
-  //   return $this->created_at;
-  // }
-  // function setCreated_at($created_at)
-  // {
-  //   $this->created_at = $this->db->real_escape_string($created_at);
-  // }
-
-  // function getUpdated_at()
-  // {
-  //   return $this->updated_at;
-  // }
-  // function setUpdated_at($updated_at)
-  // {
-  //   $this->updated_at = $this->db->real_escape_string($updated_at);
-  // }
-
   public function Allmerma()
   {
     // Crear Sentencia
@@ -114,7 +87,7 @@ class Merma
   public function All()
   {
     // Crear Sentencia
-    $sql = "CALL findMerma()";
+    $sql = "CALL findMerma({$_SESSION['identity']->idrestaurante})";
     // Enviamos La Sentencia
     $result = $this->db->query($sql);
     return $result;
@@ -131,9 +104,9 @@ class Merma
   //Registrar
   public function save()
   {
-    $sql = "INSERT INTO merma (idmerma, cantidadMerma, perdida, tipoMerma_idtipoMerma, producto_idproducto ) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO merma (cantidadMerma, perdida, tipoMerma_idtipoMerma, producto_idproducto, restaurante_idrestaurante ) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iddii", $this->getIdMerma(), $this->getCantidad(), $this->getPerdida(), $this->getIdTipoMerma(), $this->getIdProducto());
+    $stmt->bind_param("ddiii", $this->getCantidad(), $this->getPerdida(), $this->getIdTipoMerma(), $this->getIdProducto(), $_SESSION['identity']->idrestaurante);
 
     $result = $stmt->execute();
     $stmt->close();

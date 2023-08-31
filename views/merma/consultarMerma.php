@@ -55,9 +55,11 @@
           <?php $mer = MermaController::getAll(); ?>
           <?php $pro = ProductoController::getAll(); ?>
           <?php $tipo = TipoMermaController::getAll(); ?>
-          <?php while ($producto = $pro->fetch_object()) : ?>
+
+          <?php while ($merma = $mer->fetch_object()) : ?>
             <?php while ($tipoMerma = $tipo->fetch_object()) : ?>
-              <?php while ($merma = $mer->fetch_object()) : ?>
+              <?php while ($producto = $pro->fetch_object()) : ?>
+                <?php if ($producto->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
                 <tr>
                   <td><?= $merma->idmerma; ?></td>
                   <td><?= $producto->nombre; ?> <?= $producto->apellido; ?></td>
@@ -65,13 +67,13 @@
                   <td><?= $tipoMerma->tipoMerma; ?></td>
                   <td>$ <?= $merma->cantidadMerma; ?></td>
                   <td>$ <?= $merma->perdida; ?></td>
-
                   <td><?= $merma->created_at; ?></td>
                   <td class="d-flex justify-content-around d-flex">
                     <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
                     <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
                   </td>
                 </tr>
+              <?php endif; ?>
               <?php endwhile; ?>
             <?php endwhile; ?>
           <?php endwhile; ?>

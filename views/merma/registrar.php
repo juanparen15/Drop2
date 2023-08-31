@@ -10,7 +10,7 @@
 
   <div class="container p-3">
     <?php if (isset($editar) && isset($mr) && is_object($mr)) : ?>
-      <span class="titulo"><?= tittleRegisMerma2 ?> = <?= $mr->producto_idproducto ?></span>
+      <span class="titulo"><?= tittleRegisMerma2 ?> = <?= $mr->idmerma; ?></span>
       <?php $url_action = baseUrl . 'merma/registrar&id=' . $mr->idmerma; ?>
     <?php else : ?>
       <span class="titulo"><?= tittleRegisMerma1 ?></span>
@@ -40,7 +40,8 @@
           </div>
           
         <?php else : ?>
-          
+
+  
           <div class="col-6 py-2 mt-1">
             <span><?= selectProducto ?> <i class="fas fa-user"></i></span><br>
             <select class="form-control" name="producto" id="producto">
@@ -50,7 +51,7 @@
               <option><?= elija ?></option>
               <?php while ($p = $ptos->fetch_object()) : ?>
                 <?php if ($p->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
-                  <option <?= isset($mr) && is_object($mr) && (int) $p->idproducto == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $p->idusuarios; ?>" data-precio="<?= $p->precioProducto; ?>" " data-meses="<?= $p->numeroMeses; ?>" " data-restaurante="<?= $p->idrestaurante; ?>">
+                  <option <?= isset($mr) && is_object($mr) && (int) $p->idproducto == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $p->idproducto; ?>" data-precio="<?= $p->precioProducto; ?>" " data-meses="<?= $p->numeroMeses; ?>" " data-restaurante="<?= $p->idrestaurante; ?>">
                     <?= $p->nombre . ' ' . $p->apellido; ?>
                   <?php endif; ?>
                 <?php endwhile; ?>
@@ -64,7 +65,7 @@
             <!-- <option>Elija...</option> -->
             <?php while ($rest = $restaurants->fetch_object()) : ?>
               <?php if ($rest->idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
-                <option <?= isset($mr) && is_object($mr) && (int) $rest->idrestaurante == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $rest->idrestaurante; ?>">
+                <option value="<?= $rest->idrestaurante; ?>">
                   <?= $rest->nombreRestaurante; ?></option>
               <?php endif; ?>
             <?php endwhile; ?>
@@ -115,28 +116,6 @@
   <script src="<?= baseUrl; ?>assets/js/validarMermaEdit.js"></script>
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
-  <!-- <script>
-    $(document).ready(function() {
-      $('#producto').change(function() {
-        var selectedProductId = $(this).val();
-        var selectedProductPrice = getProductPrice(selectedProductId); // Debes definir esta función para obtener el precio del producto por su ID
-
-        if (selectedProductPrice !== null) {
-          $('#precio-correspondiente').text('Precio: ' + selectedProductPrice);
-        } else {
-          $('#precio-correspondiente').text('');
-        }
-      });
-
-      function getProductPrice(productId) {
-        $getPrecio();
-        // Aquí deberías hacer una llamada a tu backend para obtener el precio del producto por su ID
-        // y luego retornar ese valor. Por ejemplo:
-        // return fetchedPrice;
-        return precio; // Cambia esto con la lógica real para obtener el precio
-      }
-    });
-  </script> -->
   <script>
     document.getElementById('producto').onchange = function() {
       /* Referencia al option seleccionado */
