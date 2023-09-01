@@ -58,7 +58,7 @@
       <?php elseif ($_SESSION['identity']->nombreCargo == 'Prestamista') : ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-store-alt"></i> <?= restaurantes; ?>
+            <i class="fas fa-store-alt"></i> <?= restaurantesDeudor; ?>
           </a>
           <div class="dropdown-menu animated jackInTheBox faster" aria-labelledby="merma">
             <a class="dropdown-item" href="<?= baseUrl; ?>usuario/registro"><?= registrarUsuario; ?></a>
@@ -77,10 +77,10 @@
         </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-astronaut"></i> <?= productos; ?>
+            <i class="fas fa-user-astronaut"></i> <?= productosPrestamo; ?>
           </a>
           <div class="dropdown-menu animated jackInTheBox faster" aria-labelledby="Stock">
-            <a class="dropdown-item" href="<?= baseUrl; ?>producto/gestion"><?= registrarProduct; ?></a>
+            <a class="dropdown-item" href="<?= baseUrl; ?>producto/gestion"><?= registrarPrest; ?></a>
             <!-- <div class="dropdown-divider"></div> -->
           </div>
         </li>

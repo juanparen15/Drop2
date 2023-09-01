@@ -56,6 +56,7 @@ class MermaController
         $m->setIdMerma($_GET['id']);
 
         $rrr = $m->findMermaID();
+        $pr = $p->findProductoID();
 
         $cantActual = $rrr->cantidadMerma;
 
@@ -85,14 +86,27 @@ class MermaController
         $cantidad = isset($_GET['id']) ? $restante : $_POST['cantidad'];
         $p = new Producto();
         $p->setId(isset($_GET['id']) ? $rrr->producto_idproducto : $_POST['producto']);
+
         $result = $p->findProductoID();
         $precio = $result->precioProducto;
         $perdida = $precio - $cantidad;
         $merma->setPerdida($perdida);
-        // $p->setPrecio($precio - $perdida);
-        $p->setPrecio($perdida);
+        $productoId = $_POST['producto'];
+        $db = new mysqli('localhost', 'root', '', 'drop2');
+        $consulta1 = "UPDATE producto SET precioProducto = $perdida WHERE idProducto = $productoId";
+        $resultado1 = $db->query($consulta1);
+
+
+        if ($resultado1) {
+          // Actualización exitosa
+          $_SESSION['saveEdit'] = 'Precio actualizado';
+        } else {
+          // Error en la actualización
+          $_SESSION['saveEdit'] = 'Error en la actualización del precio';
+        }
       } else {
         $merma->setPerdida(0);
+        $p->setPrecio(0);
       }
       // Realizamos el Registro
       if (isset($_GET['id'])) {
@@ -118,7 +132,6 @@ class MermaController
       }
     }
   }
-
   // Editar
   public function editar()
   {

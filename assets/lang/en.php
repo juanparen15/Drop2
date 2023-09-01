@@ -29,6 +29,7 @@ define('regresar', 'Regresar');
 define('inicio', 'Inicio');
 //
 define('restaurantes', 'Responsables');
+define('restaurantesDeudor', 'Deudor');
 // ------
 define('gestionRestaurante', 'Gestionar Responsables');
 define('registrarUsuario', 'Registrar Usuario');
@@ -36,8 +37,10 @@ define('consultUsuarios', 'Consultar Usuarios');
 define('gestionCargos', 'Gestionar Cargos');
 //
 define('productos', 'Deudor');
+define('productosPrestamo', 'Prestamo');
 // ------
 define('registrarProduct', 'Registrar Deudor');
+define('registrarPrest', 'Registrar Prestamo');
 //
 define('stock', 'Seguimiento');
 // ------
@@ -189,4 +192,4 @@ define('regisNuevaMerma', 'Registrar Nuevo Pago');
 // Merma Alerts
 define('mermaRegistrado', 'Pago Registrado Exitosamente');
 define('mermaEditado', 'Pago Editado Exitosamente');
-define('mermaEliminado', 'Pago Cambiado Exitosamente');
+define('mermaEliminado', 'Pago Eliminado Exitosamente');

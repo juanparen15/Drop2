@@ -40,9 +40,9 @@
         <caption class="text-center py-1"><?= tittleTableMerma ?> <a href="<?= baseUrl; ?>merma/pdf" target="blank" class="btn btn-danger"><?= generarPDF ?> <i class="fas fa-file-pdf"></i></a></caption>
         <thead class="table-dark">
           <tr class="font-italic">
-            <th scope="col">ID</th>
-            <th scope="col"><?= nombreProducto ?></th>
-            <th scope="col"><?= precio ?></th>
+            <!-- <th scope="col">ID</th> -->
+            <th scope="col"><?= selectNombreDeudor ?></th>
+            <!-- <th scope="col"><?= precio ?></th> -->
             <th scope="col"><?= tipoMerma ?></th>
             <th scope="col"><?= cantidad ?></th>
             <th scope="col"><?= perdida ?></th>
@@ -60,13 +60,13 @@
           <?php while ($merma = $mer->fetch_object()) : ?>
             <?php if ($merma->restaurante_idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
               <tr>
-                <td><?= $merma->idmerma; ?></td>
+                <!-- <td><?= $merma->idmerma; ?></td> -->
                 <?php
                 // Buscar el producto correspondiente al ID de producto en la merma actual
                 $producto = $proController->findProductoID($merma->producto_idproducto); // Utiliza el método findProductoID
                 ?>
                 <td><?= $producto->nombre; ?> <?= $producto->apellido; ?></td>
-                <td>$ <?= $producto->precioProducto; ?></td>
+                <!-- <td>$ <?= $producto->precioProducto; ?></td> -->
                 <?php
                 // Buscar el tipo de merma correspondiente al ID de tipo de merma en la merma actual
                 $tipoMerma = $tipoController->findTipoMermaId($merma->tipoMerma_idtipoMerma);
