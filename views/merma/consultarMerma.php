@@ -53,30 +53,37 @@
         </thead>
         <tbody>
           <?php $mer = MermaController::getAll(); ?>
-          <?php $pro = ProductoController::getAll(); ?>
-          <?php $tipo = TipoMermaController::getAll(); ?>
+          <?php $proController = new ProductoController(); ?>
+          <?php $tipoController = new TipoMermaController(); ?>
+
 
           <?php while ($merma = $mer->fetch_object()) : ?>
-            <?php while ($tipoMerma = $tipo->fetch_object()) : ?>
-              <?php while ($producto = $pro->fetch_object()) : ?>
-                <?php if ($producto->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
-                <tr>
-                  <td><?= $merma->idmerma; ?></td>
-                  <td><?= $producto->nombre; ?> <?= $producto->apellido; ?></td>
-                  <td>$ <?= $producto->precioProducto; ?></td>
-                  <td><?= $tipoMerma->tipoMerma; ?></td>
-                  <td>$ <?= $merma->cantidadMerma; ?></td>
-                  <td>$ <?= $merma->perdida; ?></td>
-                  <td><?= $merma->created_at; ?></td>
-                  <td class="d-flex justify-content-around d-flex">
-                    <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
-                    <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
-                  </td>
-                </tr>
-              <?php endif; ?>
-              <?php endwhile; ?>
-            <?php endwhile; ?>
+            <?php if ($merma->restaurante_idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
+              <tr>
+                <td><?= $merma->idmerma; ?></td>
+                <?php
+                // Buscar el producto correspondiente al ID de producto en la merma actual
+                $producto = $proController->findProductoID($merma->producto_idproducto); // Utiliza el método findProductoID
+                ?>
+                <td><?= $producto->nombre; ?> <?= $producto->apellido; ?></td>
+                <td>$ <?= $producto->precioProducto; ?></td>
+                <?php
+                // Buscar el tipo de merma correspondiente al ID de tipo de merma en la merma actual
+                $tipoMerma = $tipoController->findTipoMermaId($merma->tipoMerma_idtipoMerma);
+                ?>
+                <td><?= $tipoMerma->tipoMerma; ?></td>
+                <td>$ <?= $merma->cantidadMerma; ?></td>
+                <td>$ <?= $merma->perdida; ?></td>
+                <td><?= $merma->created_at; ?></td>
+                <td class="d-flex justify-content-around d-flex">
+                  <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
+                  <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
+                </td>
+              </tr>
+            <?php endif; ?>
+
           <?php endwhile; ?>
+
         </tbody>
       </table>
     </div>

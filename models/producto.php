@@ -101,19 +101,14 @@ class Producto
   }
 
   // Consultar Por ID
-  public function findProductoID()
-  {
-    $sql = "SELECT * FROM producto WHERE idproducto={$this->getId()}";
+public function findProductoID()
+{
+    $sql = "SELECT * FROM producto INNER JOIN usuarios ON producto.usuario_idusuarios = usuarios.idusuarios WHERE producto.idproducto={$this->getId()}";
     $producto = $this->db->query($sql);
     return $producto->fetch_object();
-    if ($producto) {
-      $result = true;
-    } else {
-      echo "Error en la consulta: " . $this->db->error;
-      $result = false;
-    }
-    return $result;
-  }
+}
+
+
 
   // Registrar
   public function save()

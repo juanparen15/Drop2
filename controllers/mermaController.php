@@ -79,7 +79,7 @@ class MermaController
 
 
 
-      
+
       if ($merma->getIdTipoMerma() == 1 || $merma->getIdTipoMerma() == 2 || $merma->getIdTipoMerma() == 3) {
         // Calcular Restante
         $cantidad = isset($_GET['id']) ? $restante : $_POST['cantidad'];
@@ -89,6 +89,7 @@ class MermaController
         $precio = $result->precioProducto;
         $perdida = $precio - $cantidad;
         $merma->setPerdida($perdida);
+        // $p->setPrecio($precio - $perdida);
         $p->setPrecio($perdida);
       } else {
         $merma->setPerdida(0);

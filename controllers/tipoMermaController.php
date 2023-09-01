@@ -16,6 +16,12 @@ class TipoMermaController
     $tipos = $tp->findTipos();
     return $tipos;
   }
+  public function findTipoMermaId($id)
+  {
+    $tipoMerma = new TipoMerma();
+    $tipoMerma->setId($id);
+    return $tipoMerma->findTipoMID(); // Asegúrate de que este método exista en tu modelo Producto
+  }
   // Registrar
   public function registrar()
   {

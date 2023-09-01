@@ -1,5 +1,6 @@
 <?php
 require_once 'models/producto.php';
+require_once 'models/merma.php';
 
 class ProductoController
 {
@@ -22,6 +23,15 @@ class ProductoController
     $ptos = $p->findPtos1();
     return $ptos;
   }
+
+  // Método para encontrar un producto por su ID
+  public function findProductoID($id)
+  {
+    $producto = new Producto();
+    $producto->setId($id);
+    return $producto->findProductoID(); // Asegúrate de que este método exista en tu modelo Producto
+  }
+
 
 
   // public static function getUAll()
@@ -54,6 +64,12 @@ class ProductoController
         $id = $_GET['id'];
         $pro->setId($id);
         $save = $pro->update();
+        if ($save) {
+          // Actualizar el precio del producto en caso de una actualización exitosa
+          $merma = new Merma();
+          $restante = $merma->getPerdida(); // Suponiendo que tienes un método getPerdida
+          $pro->setPrecio($restante); // Actualizar el precio del producto
+        }
       } else {
         $save = $pro->save();
       }
