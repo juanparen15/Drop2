@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?= baseUrl; ?>assets/datatables/datatables.min.css" />
-<title><?= tittleProducto?></title>
+<title><?= tittleProducto ?></title>
 <!-- <style type="text/css">
   #container {
     height: 400px;
@@ -80,10 +80,21 @@
                 </select>
               </div>
 
-              <div class="form-label-group p-2">
-                <label for="precio"><?= precioProducto ?></label>
-                <input type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
-              </div>
+              <?php if (isset($editar) && isset($proEdit) && is_object($proEdit)) : ?>
+                <div class="form-label-group p-2">
+                  <label for="precioTotal"><?= precioProductoTotal ?></label>
+                  <input disabled type="number" id="precioTotal" name="precioTotal" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProductoTotal : ''; ?>">
+                </div>
+                <div class="form-label-group p-2">
+                  <label for="precio"><?= deudaRestante ?></label>
+                  <input disabled type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
+                </div>
+              <?php else : ?>
+                <div class="form-label-group p-2">
+                  <label for="precio"><?= precioProducto ?></label>
+                  <input type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
+                </div>
+              <?php endif; ?>
 
               <div class="form-label-group p-2">
                 <label for="meses"><?= mesesProducto ?></label>
@@ -118,6 +129,7 @@
               <th scope="col">ID</th>
               <th scope="col"><?= nombreProducto ?></th>
               <th scope="col"><?= precio ?></th>
+              <th scope="col"><?= deuda ?></th>
               <th scope="col"><?= numeroMeses ?></th>
               <th scope="col"><?= fecha ?></th>
               <th scope="col"><?= acciones ?></th>
@@ -132,6 +144,7 @@
                 <tr>
                   <th scope="row"><?= $pro->idproducto; ?></th>
                   <td><?= $pro->nombre; ?> <?= $pro->apellido; ?></td>
+                  <td><?= $pro->precioProductoTotal; ?></td>
                   <td><?= $pro->precioProducto; ?></td>
                   <td><?= $pro->numeroMeses; ?></td>
                   <td><?= $pro->created_at; ?></td>

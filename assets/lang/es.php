@@ -84,6 +84,7 @@ define('motivo', 'Motivo');
 define('perdida', 'Restante');
 define('tipoMerma', 'Tipo de Pago');
 define('precio', 'Prestamo (Precio)');
+define('deuda', 'Deuda (Restante)');
 define('email', 'Email');
 define('contraseña', 'Contraseña');
 define('cargo', 'Cargo');
@@ -157,6 +158,8 @@ define('formTittleProducto2', 'Editar ID Deudor Nº ');
 define('selectNombreDeudor', 'Nombre Deudor');
 define('nombreProducto', 'Seleccionar Deudor');
 define('precioProducto', 'Prestamo Deudor');
+define('precioProductoTotal', 'Prestamo (Precio)');
+define('deudaRestante', 'Deuda (Restante)');
 define('mesesProducto', '¿A cuantos meses?');
 define('numeroMeses', 'Numero de meses');
 // Producto Alerts

@@ -8,6 +8,7 @@ class Producto
   private $restaurante;
   // private $nombre;
   private $precio;
+  private $precioTotal;
   private $meses;
 
   public function __construct()
@@ -61,6 +62,16 @@ class Producto
   {
     $this->precio = $this->db->real_escape_string($precio);
   }
+ 
+  // GET - SET Precio
+  function getPrecioTotal()
+  {
+    return $this->precioTotal;
+  }
+  function setPrecioTotal($precioTotal)
+  {
+    $this->precioTotal = $this->db->real_escape_string($precioTotal);
+  }
 
   // GET - SET Meses
   function getMeses()
@@ -113,9 +124,9 @@ public function findProductoID()
   // Registrar
   public function save()
   {
-    $sql = "INSERT INTO producto (usuario_idusuarios, restaurante_idrestaurante, precioProducto, numeroMeses) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO producto (usuario_idusuarios, restaurante_idrestaurante, precioProducto, precioProductoTotal, numeroMeses) VALUES (?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iidi", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getMeses());
+    $stmt->bind_param("iiddi", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getPrecio(), $this->getMeses());
 
     $result = $stmt->execute();
     $stmt->close();
@@ -126,9 +137,9 @@ public function findProductoID()
   // Editar
   public function update()
   {
-    $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, precioProducto=?, numeroMeses=?, updated_at=NOW() WHERE idproducto=?";
+    $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, precioProductoTotal=?, numeroMeses=?, updated_at=NOW() WHERE idproducto=?";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iidii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getMeses(), $this->getId());
+    $stmt->bind_param("iidii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecioTotal(), $this->getMeses(), $this->getId());
 
     $result = $stmt->execute();
     $stmt->close();
