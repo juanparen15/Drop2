@@ -27,100 +27,100 @@
       <hr>
     <?php endif; ?>
     <?php Utils::deleteSession('saveEdit') ?>
-    
+
     <form action="<?= $url_action; ?>" method="POST" class="pb-3" id="miFormulario">
       <div class="row">
-      <?php if ($_SESSION['identity']->nombreCargo == 'Administrador') : ?>
-        <div class="col-6">
-          <span class=""><?= selectCargo; ?> <i class="fas fa-user-tag"></i></span><br>
-          <?php $c = CargoController::getAll(); ?>
-          <select class="custom-select my-1 mr-sm-2" name="rol" id="rol">
-            <option>Elija...</option>
-            <?php while ($car = $c->fetch_object()) : ?>
-              <option <?= isset($user) && is_object($user) && (int) $user->idcargo == (int) $car->idcargo ? 'selected' : ''; ?> value="<?= $car->idcargo; ?>"><?= $car->nombreCargo; ?></option>
-            <?php endwhile; ?>
-          </select>
-        </div>
-        <div class="col-6">
-          <span class=""><?= selectRestaurante; ?> <i class="fas fa-utensils"></i></span><br>
-          <?php $restaurants = RestauranteController::getAll(); ?>
-          <select class="custom-select my-1 mr-sm-2" name="restaurante" id="restaurante">
-            <option>Elija...</option>
-            <?php while ($rest = $restaurants->fetch_object()) : ?>
-              <option <?= isset($user) && is_object($user) && (int) $user->idrestaurante == (int) $rest->idrestaurante ? 'selected' : ''; ?> value="<?= $rest->idrestaurante; ?>"><?= $rest->nombreRestaurante; ?></option>
-            <?php endwhile; ?>
-          </select>
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="nombres"><?= nombreUsuario; ?></label>
-          <input type="text" id="nombres" name="nombres" class="form-control" value="<?= isset($user) && is_object($user) ? $user->nombre : ''; ?>">
-        </div>
-        <hr>
-        <div class="form-label-group col-6 py-2">
-          <label for="apellidos"><?= apellidoUsuario; ?></label>
-          <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= isset($user) && is_object($user) ? $user->apellido : ''; ?>">
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="email"><?= emailUsuario; ?></label>
-          <input type="email" id="email" name="email" class="form-control" value="<?= isset($user) && is_object($user) ? $user->email : ''; ?>">
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="pass"><?= passUsuario; ?></label>
-          <input type="<?= isset($user) && is_object($user) ? 'text' : 'password'; ?>" id="pass" name="pass" class="form-control" value="<?= isset($user) && is_object($user) ? $user->contrasena : ''; ?>">
-        </div>
-        <div class="col-6 offset-3 py-2">
-          <input type="submit" class="btn btn-outline-primary btn-block" id="enviar" value="<?= isset($user) && is_object($user) ? actualizar : registrar; ?>">
-        </div>
+        <?php if ($_SESSION['identity']->nombreCargo == 'Administrador') : ?>
+          <div class="col-6">
+            <span class=""><?= selectCargo; ?> <i class="fas fa-user-tag"></i></span><br>
+            <?php $c = CargoController::getAll(); ?>
+            <select class="custom-select my-1 mr-sm-2" name="rol" id="rol">
+              <option>Elija...</option>
+              <?php while ($car = $c->fetch_object()) : ?>
+                <option <?= isset($user) && is_object($user) && (int) $user->idcargo == (int) $car->idcargo ? 'selected' : ''; ?> value="<?= $car->idcargo; ?>"><?= $car->nombreCargo; ?></option>
+              <?php endwhile; ?>
+            </select>
+          </div>
+          <div class="col-6">
+            <span class=""><?= selectRestaurante; ?> <i class="fas fa-utensils"></i></span><br>
+            <?php $restaurants = RestauranteController::getAll(); ?>
+            <select class="custom-select my-1 mr-sm-2" name="restaurante" id="restaurante">
+              <option>Elija...</option>
+              <?php while ($rest = $restaurants->fetch_object()) : ?>
+                <option <?= isset($user) && is_object($user) && (int) $user->idrestaurante == (int) $rest->idrestaurante ? 'selected' : ''; ?> value="<?= $rest->idrestaurante; ?>"><?= $rest->nombreRestaurante; ?></option>
+              <?php endwhile; ?>
+            </select>
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="nombres"><?= nombreUsuario; ?></label>
+            <input type="text" id="nombres" name="nombres" class="form-control" value="<?= isset($user) && is_object($user) ? $user->nombre : ''; ?>">
+          </div>
+          <hr>
+          <div class="form-label-group col-6 py-2">
+            <label for="apellidos"><?= apellidoUsuario; ?></label>
+            <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= isset($user) && is_object($user) ? $user->apellido : ''; ?>">
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="email"><?= emailUsuario; ?></label>
+            <input type="email" id="email" name="email" class="form-control" value="<?= isset($user) && is_object($user) ? $user->email : ''; ?>">
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="pass"><?= passUsuario; ?></label>
+            <input type="<?= isset($user) && is_object($user) ? 'text' : 'password'; ?>" id="pass" name="pass" class="form-control" value="<?= isset($user) && is_object($user) ? $user->contrasena : ''; ?>">
+          </div>
+          <div class="col-6 offset-3 py-2">
+            <input type="submit" class="btn btn-outline-primary btn-block" id="enviar" value="<?= isset($user) && is_object($user) ? actualizar : registrar; ?>">
+          </div>
         <?php endif; ?>
       </div>
       <div class="row">
-      <?php if ($_SESSION['identity']->nombreCargo == 'Prestamista') : ?>
-        <div class="col-6">
-          <span class=""><?= selectCargo; ?> <i class="fas fa-user-tag"></i></span><br>
-          <?php $c = CargoController::getDeudor(); ?>
-          <select class="custom-select my-1 mr-sm-2" name="rol" id="rol">
-            <option>Elija...</option>
-            <?php while ($car = $c->fetch_object()) : ?>
-              <option <?= isset($user) && is_object($user) && (int) $user->idcargo == (int) $car->idcargo ? 'selected' : ''; ?> value="<?= $car->idcargo; ?>"><?= $car->nombreCargo; ?></option>
-            <?php endwhile; ?>
-          </select>
-        </div>
-        <!-- <div class="form-label-group col-6 py-2"> -->
-        <div class="col-6">
-          <span class=""><?= selectRestaurante; ?> <i class="fas fa-utensils"></i></span><br>
-          <?php $restaurants = RestauranteController::getAll(); ?>
-          <select class="custom-select my-1 mr-sm-2" name="restaurante" id="restaurante">
-            <option>Elija...</option>
-              <?php while ($rest = $restaurants->fetch_object()) : ?>
-              <?php if ($rest->idrestaurante == $_SESSION['identity']->idrestaurante) :?>
-              <option <?= isset($user) && is_object($user) && (int) $user->idrestaurante == (int) $rest->idrestaurante ? 'selected' : ''; ?> value="<?= $rest->idrestaurante; ?>"><?= $rest->nombreRestaurante; ?></option>
-              <?php endif; ?>
+        <?php if ($_SESSION['identity']->nombreCargo == 'Prestamista') : ?>
+          <div class="col-6">
+            <span class=""><?= selectCargo; ?> <i class="fas fa-user-tag"></i></span><br>
+            <?php $c = CargoController::getDeudor(); ?>
+            <select class="custom-select my-1 mr-sm-2" name="rol" id="rol">
+              <option>Elija...</option>
+              <?php while ($car = $c->fetch_object()) : ?>
+                <option <?= isset($user) && is_object($user) && (int) $user->idcargo == (int) $car->idcargo ? 'selected' : ''; ?> value="<?= $car->idcargo; ?>"><?= $car->nombreCargo; ?></option>
               <?php endwhile; ?>
-          </select>
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="nombres"><?= nombreUsuario; ?></label>
-          <input type="text" id="nombres" name="nombres" class="form-control" value="<?= isset($user) && is_object($user) ? $user->nombre : ''; ?>">
-        </div>
-        <hr>
-        <div class="form-label-group col-6 py-2">
-          <label for="apellidos"><?= apellidoUsuario; ?></label>
-          <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= isset($user) && is_object($user) ? $user->apellido : ''; ?>">
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="email"><?= emailUsuario; ?></label>
-          <input type="email" id="email" name="email" class="form-control" value="<?= isset($user) && is_object($user) ? $user->email : ''; ?>">
-        </div>
-        <div class="form-label-group col-6 py-2">
-          <label for="pass"><?= passUsuario; ?></label>
-          <input type="<?= isset($user) && is_object($user) ? 'text' : 'password'; ?>" id="pass" name="pass" class="form-control" value="<?= isset($user) && is_object($user) ? $user->contrasena : ''; ?>">
-        </div>
-        <div class="col-6 offset-3 py-2">
-          <input type="submit" class="btn btn-outline-primary btn-block" id="enviar" value="<?= isset($user) && is_object($user) ? actualizar : registrar; ?>">
-        </div>
+            </select>
+          </div>
+          <!-- <div class="form-label-group col-6 py-2"> -->
+          <div class="col-6">
+            <span class=""><?= selectRestaurante; ?> <i class="fas fa-utensils"></i></span><br>
+            <?php $restaurants = RestauranteController::getAll(); ?>
+            <select class="custom-select my-1 mr-sm-2" name="restaurante" id="restaurante">
+              <option>Elija...</option>
+              <?php while ($rest = $restaurants->fetch_object()) : ?>
+                <?php if ($rest->idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
+                  <option <?= isset($user) && is_object($user) && (int) $user->idrestaurante == (int) $rest->idrestaurante ? 'selected' : ''; ?> value="<?= $rest->idrestaurante; ?>"><?= $rest->nombreRestaurante; ?></option>
+                <?php endif; ?>
+              <?php endwhile; ?>
+            </select>
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="nombres"><?= nombreUsuario; ?></label>
+            <input type="text" id="nombres" name="nombres" class="form-control" value="<?= isset($user) && is_object($user) ? $user->nombre : ''; ?>">
+          </div>
+          <hr>
+          <div class="form-label-group col-6 py-2">
+            <label for="apellidos"><?= apellidoUsuario; ?></label>
+            <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?= isset($user) && is_object($user) ? $user->apellido : ''; ?>">
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="email"><?= emailUsuario; ?></label>
+            <input type="email" id="email" name="email" class="form-control" value="<?= isset($user) && is_object($user) ? $user->email : ''; ?>">
+          </div>
+          <div class="form-label-group col-6 py-2">
+            <label for="pass"><?= passUsuario; ?></label>
+            <input type="<?= isset($user) && is_object($user) ? 'text' : 'password'; ?>" id="pass" name="pass" class="form-control" value="<?= isset($user) && is_object($user) ? $user->contrasena : ''; ?>">
+          </div>
+          <div class="col-6 offset-3 py-2">
+            <input type="submit" class="btn btn-outline-primary btn-block" id="enviar" value="<?= isset($user) && is_object($user) ? actualizar : registrar; ?>">
+          </div>
       </div>
     </form>
-    <?php endif; ?>
+  <?php endif; ?>
   </div>
   <!-- ------------- Footer ------------- -->
   <?php require_once 'views/layout/footer2.php'; ?>

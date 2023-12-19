@@ -6,7 +6,6 @@ class ProductoController
 {
   public function gestion()
   {
-
     $p = new Producto();
     $ptos = $p->findPtos();
     require_once 'views/producto/crud.php';
@@ -21,6 +20,12 @@ class ProductoController
   {
     $p = new Producto();
     $ptos = $p->findPtos1();
+    return $ptos;
+  }
+  public static function getIAll()
+  {
+    $p = new Producto();
+    $ptos = $p->findPtosI();
     return $ptos;
   }
 
@@ -45,12 +50,13 @@ class ProductoController
   {
 
     // Verificamos si se Manda Algo por POST
-    if (isset($_POST) && !empty($_POST['usuario']) && !empty($_POST['precio']) && !empty($_POST['meses'])) {
+    if (isset($_POST) && !empty($_POST['usuario']) && !empty($_POST['precio']) && !empty($_POST['meses']) && !empty($_POST['interes'])) {
       // Almacenamos los Datos en variables
       $usuario = $_POST['usuario'];
       $restaurante = $_POST['restaurante'];
       $precio = $_POST['precio'];
       $meses = $_POST['meses'];
+      $interes = $_POST['interes'];
       // Creamos un Objeto Restaurante
       $pro = new Producto();
       // Almacenamos los Datos
@@ -59,6 +65,7 @@ class ProductoController
       //$pro->setNombre($nombre);
       $pro->setPrecio($precio);
       $pro->setMeses($meses);
+      $pro->setInteres($interes);
       // Realizamos el INSERT O UPDATE
       if (isset($_GET['id'])) {
         $id = $_GET['id'];

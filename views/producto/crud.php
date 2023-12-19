@@ -102,6 +102,17 @@
               </div>
 
               <div class="form-label-group p-2">
+                <span class=""><?= selectInteres; ?> <i class="fas fa-porcent"></i></span><br>
+                <?php $intereses = ProductoController::getIAll(); ?>
+                <select class="custom-select my-1 mr-sm-2" name="interes" id="interes">
+                  <!-- <option>Elija...</option> -->
+                  <?php while ($inter = $intereses->fetch_object()) : ?>
+                    <option <?= isset($proEdit) && is_object($proEdit) && (int) $inter->id == (int) $proEdit->interes_id ? 'selected' : ''; ?> value="<?= $inter->id; ?>">
+                      <?= $inter->interes; ?></option>
+                  <?php endwhile; ?>
+                </select>
+              </div>
+              <div class="form-label-group p-2">
                 <span class=""><?= selectRestaurante; ?> <i class="fas fa-user"></i></span><br>
                 <?php $restaurants = RestauranteController::getAll(); ?>
                 <select class="custom-select my-1 mr-sm-2" name="restaurante" id="restaurante">
@@ -131,6 +142,7 @@
               <th scope="col"><?= precio ?></th>
               <th scope="col"><?= deuda ?></th>
               <th scope="col"><?= numeroMeses ?></th>
+              <th scope="col"><?= interes ?></th>
               <th scope="col"><?= fecha ?></th>
               <th scope="col"><?= acciones ?></th>
             </tr>
@@ -147,6 +159,7 @@
                   <td><?= $pro->precioProductoTotal; ?></td>
                   <td><?= $pro->precioProducto; ?></td>
                   <td><?= $pro->numeroMeses; ?></td>
+                  <td><?= $pro->interes; ?></td>
                   <td><?= $pro->created_at; ?></td>
                   <td class="d-flex justify-content-around border border-light">
                     <a href="<?= baseUrl; ?>producto/editar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-warning btn-sm"><i class="fas fa-pen-nib"></i> <?= editar ?></a>

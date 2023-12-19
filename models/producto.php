@@ -10,6 +10,7 @@ class Producto
   private $precio;
   private $precioTotal;
   private $meses;
+  private $interes;
 
   public function __construct()
   {
@@ -83,11 +84,30 @@ class Producto
     $this->meses = $this->db->real_escape_string($meses);
   }
 
+  // GET - SET Interes
+  function getInteres()
+  {
+    return $this->interes;
+  }
+  function setInteres($interes)
+  {
+    $this->interes = $this->db->real_escape_string($interes);
+  }
+
   // Consultar Todos
   public function findPtos()
   {
     // Crear Sentencia
-    $sql = "SELECT * FROM producto inner join usuarios on producto.usuario_idusuarios = usuarios.idusuarios inner join restaurante on producto.restaurante_idrestaurante = restaurante.idrestaurante";
+    $sql = "SELECT * FROM producto inner join usuarios on producto.usuario_idusuarios = usuarios.idusuarios inner join restaurante on producto.restaurante_idrestaurante = restaurante.idrestaurante inner join interes on producto.interes_id = interes.id";
+    // Enviamos La Sentencia
+    $result = $this->db->query($sql);
+    return $result;
+  }
+  // Consultar Todos
+  public function findPtosI()
+  {
+    // Crear Sentencia
+    $sql = "SELECT * FROM interes";
     // Enviamos La Sentencia
     $result = $this->db->query($sql);
     return $result;
@@ -124,9 +144,9 @@ public function findProductoID()
   // Registrar
   public function save()
   {
-    $sql = "INSERT INTO producto (usuario_idusuarios, restaurante_idrestaurante, precioProducto, precioProductoTotal, numeroMeses) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO producto (usuario_idusuarios, restaurante_idrestaurante, precioProducto, precioProductoTotal, numeroMeses, interes_id) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iiddi", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getPrecio(), $this->getMeses());
+    $stmt->bind_param("iiddii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getPrecio(), $this->getMeses(), $this->getInteres());
 
     $result = $stmt->execute();
     $stmt->close();
@@ -137,10 +157,9 @@ public function findProductoID()
   // Editar
   public function update()
   {
-    $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, precioProductoTotal=?, numeroMeses=?, updated_at=NOW() WHERE idproducto=?";
+    $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, numeroMeses=?, interes_id=?, updated_at=NOW() WHERE idproducto=?";
     $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iidii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecioTotal(), $this->getMeses(), $this->getId());
-
+    $stmt->bind_param("iiiii", $this->getUsuario(), $this->getRestaurante(), $this->getMeses(), $this->getInteres(), $this->getId());
     $result = $stmt->execute();
     $stmt->close();
 

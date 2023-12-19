@@ -119,6 +119,7 @@ define('tittleRegisUsuario2', 'Editar Usuario');
 define('selectCargo', 'Seleccionar Cargo');
 define('elija', 'Elija...');
 define('selectRestaurante', 'Seleccionar Responsable');
+define('selectInteres', 'Seleccionar Interes');
 define('nombreUsuario', 'Nombre');
 define('apellidoUsuario', 'Apellido');
 define('emailUsuario', 'Email');
@@ -162,6 +163,7 @@ define('precioProductoTotal', 'Prestamo (Precio)');
 define('deudaRestante', 'Deuda (Restante)');
 define('mesesProducto', '¿A cuantos meses?');
 define('numeroMeses', 'Numero de meses');
+define('interes', 'Interes');
 // Producto Alerts
 define('productoRegistrado', 'Deudor Registrado Exitosamente');
 define('productoEditado', 'Deudor Editado Exitosamente');
