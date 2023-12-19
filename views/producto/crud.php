@@ -81,13 +81,10 @@
               </div>
 
               <?php if (isset($editar) && isset($proEdit) && is_object($proEdit)) : ?>
+                
                 <div class="form-label-group p-2">
-                  <label for="precioTotal"><?= precioProductoTotal ?></label>
-                  <input disabled type="number" id="precioTotal" name="precioTotal" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProductoTotal : ''; ?>">
-                </div>
-                <div class="form-label-group p-2">
-                  <label for="precio"><?= deudaRestante ?></label>
-                  <input disabled type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
+                  <label hidden for="precio"><?= deudaRestante ?></label>
+                  <input hidden type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
                 </div>
               <?php else : ?>
                 <div class="form-label-group p-2">
@@ -103,7 +100,7 @@
 
               <div class="form-label-group p-2">
                 <span class=""><?= selectInteres; ?> <i class="fas fa-porcent"></i></span><br>
-                <?php $intereses = ProductoController::getIAll(); ?>
+                <?php $intereses = InteresController::getAll(); ?>
                 <select class="custom-select my-1 mr-sm-2" name="interes" id="interes">
                   <!-- <option>Elija...</option> -->
                   <?php while ($inter = $intereses->fetch_object()) : ?>
@@ -150,6 +147,7 @@
           <tbody>
             <?php $u = UsuarioController::getUAll(); ?>
             <?php $p = ProductoController::getAll(); ?>
+            <?php $i = InteresController::getAll(); ?>
 
             <?php while ($pro = $p->fetch_object()) : ?>
               <?php if ($pro->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>

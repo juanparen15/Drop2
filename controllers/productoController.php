@@ -1,6 +1,7 @@
 <?php
 require_once 'models/producto.php';
 require_once 'models/merma.php';
+require_once 'models/interes.php';
 
 class ProductoController
 {
@@ -22,12 +23,12 @@ class ProductoController
     $ptos = $p->findPtos1();
     return $ptos;
   }
-  public static function getIAll()
-  {
-    $p = new Producto();
-    $ptos = $p->findPtosI();
-    return $ptos;
-  }
+  // public static function getIAll()
+  // {
+  //   $p = new Producto();
+  //   $ptos = $p->findPtosI();
+  //   return $ptos;
+  // }
 
   // Método para encontrar un producto por su ID
   public function findProductoID($id)

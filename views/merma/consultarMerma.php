@@ -48,7 +48,7 @@
             <th scope="col"><?= perdida ?></th>
 
             <th scope="col"><?= fechaMerma ?></th>
-            <th scope="col"><?= acciones ?></th>
+            <!-- <th scope="col"><?= acciones ?></th> -->
           </tr>
         </thead>
         <tbody>
@@ -75,9 +75,9 @@
                 <td>$ <?= $merma->cantidadMerma; ?></td>
                 <td>$ <?= $merma->perdida; ?></td>
                 <td><?= $merma->created_at; ?></td>
-                <td class="d-flex justify-content-around d-flex">
-                  <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a>
-                  <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a>
+                <!-- <td class="d-flex justify-content-around d-flex"> -->
+                  <!-- <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a> -->
+                  <!-- <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a> -->
                 </td>
               </tr>
             <?php endif; ?>

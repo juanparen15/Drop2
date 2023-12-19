@@ -63,7 +63,7 @@ class Producto
   {
     $this->precio = $this->db->real_escape_string($precio);
   }
- 
+
   // GET - SET Precio
   function getPrecioTotal()
   {
@@ -104,14 +104,14 @@ class Producto
     return $result;
   }
   // Consultar Todos
-  public function findPtosI()
-  {
-    // Crear Sentencia
-    $sql = "SELECT * FROM interes";
-    // Enviamos La Sentencia
-    $result = $this->db->query($sql);
-    return $result;
-  }
+  // public function findPtosI()
+  // {
+  //   // Crear Sentencia
+  //   $sql = "SELECT * FROM interes";
+  //   // Enviamos La Sentencia
+  //   $result = $this->db->query($sql);
+  //   return $result;
+  // }
 
   public function findPtos1()
   {
@@ -132,12 +132,13 @@ class Producto
   }
 
   // Consultar Por ID
-public function findProductoID()
-{
+  public function findProductoID()
+  {
     $sql = "SELECT * FROM producto INNER JOIN usuarios ON producto.usuario_idusuarios = usuarios.idusuarios WHERE producto.idproducto={$this->getId()}";
     $producto = $this->db->query($sql);
     return $producto->fetch_object();
-}
+    // return $producto;
+  }
 
 
 
@@ -147,24 +148,32 @@ public function findProductoID()
     $sql = "INSERT INTO producto (usuario_idusuarios, restaurante_idrestaurante, precioProducto, precioProductoTotal, numeroMeses, interes_id) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $this->db->prepare($sql);
     $stmt->bind_param("iiddii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getPrecio(), $this->getMeses(), $this->getInteres());
-
     $result = $stmt->execute();
     $stmt->close();
-
     return $result;
   }
 
   // Editar
   public function update()
   {
-    $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, numeroMeses=?, interes_id=?, updated_at=NOW() WHERE idproducto=?";
-    $stmt = $this->db->prepare($sql);
-    $stmt->bind_param("iiiii", $this->getUsuario(), $this->getRestaurante(), $this->getMeses(), $this->getInteres(), $this->getId());
-    $result = $stmt->execute();
-    $stmt->close();
-
+    $sql = "UPDATE producto SET usuario_idusuarios='{$this->getUsuario()}', restaurante_idrestaurante='{$this->getRestaurante()}', precioProducto='{$this->getPrecio()}', numeroMeses='{$this->getMeses()}', interes_id='{$this->getInteres()}', updated_at=NOW() WHERE idproducto={$this->id}";
+    $update = $this->db->query($sql);
+    $result = false;
+    if ($update) {
+      $result = true;
+    }
     return $result;
   }
+  // public function update()
+  // {
+  //   $sql = "UPDATE producto SET usuario_idusuarios=?, restaurante_idrestaurante=?, precioProducto=?, precioProductoTotal=?, numeroMeses=?, interes_id=?, updated_at=NOW() WHERE idproducto=?";
+  //   $stmt = $this->db->prepare($sql);
+  //   $stmt->bind_param("iiddii", $this->getUsuario(), $this->getRestaurante(), $this->getPrecio(), $this->getPrecioTotal(), $this->getMeses(), $this->getInteres());
+  //   $result = $stmt->execute();
+  //   $stmt->close();
+
+  //   return $result;
+  // }
   // Eliminar
   public function delete()
   {
