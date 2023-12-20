@@ -44,9 +44,10 @@
             <th scope="col"><?= selectNombreDeudor ?></th>
             <!-- <th scope="col"><?= precio ?></th> -->
             <th scope="col"><?= tipoMerma ?></th>
+            <th scope="col"><?= precioProductoTotal ?></th>
+            <!-- <th scope="col"><?= precioProducto ?></th> -->
             <th scope="col"><?= cantidad ?></th>
             <th scope="col"><?= perdida ?></th>
-
             <th scope="col"><?= fechaMerma ?></th>
             <!-- <th scope="col"><?= acciones ?></th> -->
           </tr>
@@ -72,12 +73,14 @@
                 $tipoMerma = $tipoController->findTipoMermaId($merma->tipoMerma_idtipoMerma);
                 ?>
                 <td><?= $tipoMerma->tipoMerma; ?></td>
+                <td><?= $producto->precioProductoTotal; ?></td>
+                <!-- <td><?= $producto->precioProducto; ?></td> -->
                 <td>$ <?= $merma->cantidadMerma; ?></td>
                 <td>$ <?= $merma->perdida; ?></td>
                 <td><?= $merma->created_at; ?></td>
                 <!-- <td class="d-flex justify-content-around d-flex"> -->
-                  <!-- <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a> -->
-                  <!-- <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a> -->
+                <!-- <a href="<?= baseUrl; ?>merma/editar&id=<?= $merma->idmerma; ?>" class="btn btn-warning btn-sm"><?= editar ?> <i class="fas fa-pencil-alt"></i></a> -->
+                <!-- <a href="<?= baseUrl; ?>merma/eliminar&id=<?= $merma->idmerma; ?>" class="btn btn-outline-danger btn-sm"><?= eliminar ?> <i class="far fa-trash-alt"></i></a> -->
                 </td>
               </tr>
             <?php endif; ?>

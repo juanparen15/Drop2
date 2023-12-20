@@ -90,11 +90,18 @@ class MermaController
         $result = $p->findProductoID();
         $precio = $result->precioProducto;
         $perdida = $precio - $cantidad;
+        if ($perdida < '0') {
+          $_SESSION['saveEdit'] = 'Yuca';
+          header('Location: ' . baseUrl . 'merma/registro');
+          die();
+        }
         $merma->setPerdida($perdida);
         $productoId = $_POST['producto'];
         $db = new mysqli('localhost', 'root', '', 'drop2');
         $consulta1 = "UPDATE producto SET precioProducto = $perdida WHERE idProducto = $productoId";
         $resultado1 = $db->query($consulta1);
+
+
 
 
         if ($resultado1) {

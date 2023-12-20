@@ -81,7 +81,7 @@
               </div>
 
               <?php if (isset($editar) && isset($proEdit) && is_object($proEdit)) : ?>
-                
+
                 <div class="form-label-group p-2">
                   <label hidden for="precio"><?= deudaRestante ?></label>
                   <input hidden type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : ''; ?>">
@@ -130,6 +130,7 @@
         </div>
       </div>
       <div class="col-md-8">
+
         <table class="table table-bordered table-responsive-md table-hover" id="tabla">
           <caption class="text-center"><?= tittleTableProducto ?></caption>
           <thead class="table-dark">
@@ -151,23 +152,41 @@
 
             <?php while ($pro = $p->fetch_object()) : ?>
               <?php if ($pro->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
-                <tr>
-                  <th scope="row"><?= $pro->idproducto; ?></th>
-                  <td><?= $pro->nombre; ?> <?= $pro->apellido; ?></td>
-                  <td><?= $pro->precioProductoTotal; ?></td>
-                  <td><?= $pro->precioProducto; ?></td>
-                  <td><?= $pro->numeroMeses; ?></td>
-                  <td><?= $pro->interes; ?></td>
-                  <td><?= $pro->created_at; ?></td>
-                  <td class="d-flex justify-content-around border border-light">
-                    <a href="<?= baseUrl; ?>producto/editar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-warning btn-sm"><i class="fas fa-pen-nib"></i> <?= editar ?></a>
-                    <a href="<?= baseUrl; ?>producto/eliminar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> <?= eliminar ?></a>
-                  </td>
-                </tr>
+                <?php if ($pro->precioProducto <= '0') : ?>
+
+                  <tr>
+                    <th scope="row"><?= $pro->idproducto; ?></th>
+                    <td><?= $pro->nombre; ?> <?= $pro->apellido; ?></td>
+                    <td><?= $pro->precioProductoTotal; ?></td>
+                    <td><?= $pro->precioProducto; ?></td>
+                    <td><?= $pro->numeroMeses; ?></td>
+                    <td><?= $pro->interes; ?></td>
+                    <td><?= $pro->created_at; ?></td>
+                    <td class="d-flex justify-content-around border border-light">
+                      <a href="<?= baseUrl; ?>producto/editar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-warning btn-sm disabled"><i class="fas fa-pen-nib"></i> <?= editar ?></a>
+                      <a href="<?= baseUrl; ?>producto/eliminar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-danger btn-sm disabled"><i class="far fa-trash-alt"></i> <?= eliminar ?></a>
+                    </td>
+                  </tr>
+                <?php else : ?>
+                  <tr>
+                    <th scope="row"><?= $pro->idproducto; ?></th>
+                    <td><?= $pro->nombre; ?> <?= $pro->apellido; ?></td>
+                    <td><?= $pro->precioProductoTotal; ?></td>
+                    <td><?= $pro->precioProducto; ?></td>
+                    <td><?= $pro->numeroMeses; ?></td>
+                    <td><?= $pro->interes; ?></td>
+                    <td><?= $pro->created_at; ?></td>
+                    <td class="d-flex justify-content-around border border-light">
+                      <a href="<?= baseUrl; ?>producto/editar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-warning btn-sm"><i class="fas fa-pen-nib"></i> <?= editar ?></a>
+                      <a href="<?= baseUrl; ?>producto/eliminar&id=<?= $pro->idproducto; ?>" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i> <?= eliminar ?></a>
+                    </td>
+                  </tr>
+                <?php endif; ?>
               <?php endif; ?>
             <?php endwhile; ?>
 
           </tbody>
+
         </table>
       </div>
     </div>
