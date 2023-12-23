@@ -136,9 +136,13 @@ class Producto
   {
     $sql = "SELECT * FROM producto INNER JOIN usuarios ON producto.usuario_idusuarios = usuarios.idusuarios WHERE producto.idproducto={$this->getId()}";
     $producto = $this->db->query($sql);
+    if (!$producto) {
+      return null;
+    }
+
     return $producto->fetch_object();
-    // return $producto;
   }
+
 
 
 

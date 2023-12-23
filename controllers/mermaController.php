@@ -128,7 +128,7 @@ class MermaController
           $_SESSION['saveEdit'] = 'Registrado';
         }
       }
-      header('Location: ' . baseUrl . 'merma/consultarMerma');
+      header('Location: ' . baseUrl . 'merma/registro');
     } else {
       if (isset($_GET['id'])) {
         $_SESSION['saveEdit'] = 'Vacios';

@@ -66,9 +66,9 @@ function validarLote() {
 }
 
 function validarProducto() {
-  var elemento = document.getElementById("producto");
+  var elemento = document.getElementById("usuario");
   if (elemento.value == "Elija..." || elemento.value == "Choose...") {
-    alertica('Eliga Producto');
+    alertica('Eliga Deudor');
     return false;
   }
   return true;

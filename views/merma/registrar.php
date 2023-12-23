@@ -34,14 +34,14 @@
     <?php Utils::deleteSession('saveEdit') ?>
     <form action="<?= $url_action; ?>" method="POST" class="pb-3" id="miFormulario">
       <div class="row">
-        <?php if (isset($mr) && is_object($mr)) : (isset($proEdit) && is_object($proEdit))?>
+        <?php if (isset($mr) && is_object($mr)) : (isset($proEdit) && is_object($proEdit)) ?>
           <div class="col-12">
             <?= cantidadActualMerma ?> <b class="text-danger"> <?= $mr->cantidadMerma ?> </b>
           </div>
-          
+
         <?php else : ?>
 
-  
+
           <div class="col-6 py-2 mt-1">
             <span><?= selectProducto ?> <i class="fas fa-user"></i></span><br>
             <select class="form-control" name="producto" id="producto">
@@ -51,38 +51,43 @@
               <option><?= elija ?></option>
               <?php while ($p = $ptos->fetch_object()) : ?>
                 <?php if ($p->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
-                  <option <?= isset($mr) && is_object($mr) && (int) $p->idproducto == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $p->idproducto; ?>" data-precio="<?= $p->precioProducto; ?>" " data-meses="<?= $p->numeroMeses; ?>" " data-restaurante="<?= $p->idrestaurante; ?>">
-                    <?= $p->nombre . ' ' . $p->apellido; ?>
+                  <?php if ($p->precioProducto <= '0') : ?>
+                    <option hidden <?= isset($mr) && is_object($mr) && (int) $p->idproducto == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $p->idproducto; ?>" data-precio="<?= $p->precioProducto; ?>" " data-meses=" <?= $p->numeroMeses; ?>" " data-restaurante=" <?= $p->idrestaurante; ?>">
+                      <?= $p->nombre . ' ' . $p->apellido; ?>
+                    <?php else : ?>
+                    <option <?= isset($mr) && is_object($mr) && (int) $p->idproducto == (int) $mr->producto_idproducto ? 'selected' : ''; ?> value="<?= $p->idproducto; ?>" data-precio="<?= $p->precioProducto; ?>" " data-meses=" <?= $p->numeroMeses; ?>" " data-restaurante=" <?= $p->idrestaurante; ?>">
+                      <?= $p->nombre . ' ' . $p->apellido; ?>
+                    <?php endif; ?>
                   <?php endif; ?>
                 <?php endwhile; ?>
             </select>
           </div>
-          
+
           <div class="col-6 py-2 mt-1">
-          <span class=""><?= selectRestaurante; ?> <i class="fas fa-user"></i></span><br>
-          <?php $restaurants = RestauranteController::getAll(); ?>
-          <select disabled class="form-control" name="restaurante" id="restaurante">
-            <!-- <option>Elija...</option> -->
-            <?php while ($rest = $restaurants->fetch_object()) : ?>
-              <?php if ($rest->idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
-                <option value="<?= $rest->idrestaurante; ?>">
-                  <?= $rest->nombreRestaurante; ?></option>
-              <?php endif; ?>
-            <?php endwhile; ?>
-          </select>
-        </div>
+            <span class=""><?= selectRestaurante; ?> <i class="fas fa-user"></i></span><br>
+            <?php $restaurants = RestauranteController::getAll(); ?>
+            <select disabled class="form-control" name="restaurante" id="restaurante">
+              <!-- <option>Elija...</option> -->
+              <?php while ($rest = $restaurants->fetch_object()) : ?>
+                <?php if ($rest->idrestaurante == $_SESSION['identity']->idrestaurante) : ?>
+                  <option value="<?= $rest->idrestaurante; ?>">
+                    <?= $rest->nombreRestaurante; ?></option>
+                <?php endif; ?>
+              <?php endwhile; ?>
+            </select>
+          </div>
 
-        
 
-        <div class="col-6 py-2 mt-1">
-          <label for="precio"><?= precioProducto ?></label>
-          <input disabled type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : (isset($mr) && is_object($mr) ? $mr->precioProducto : ''); ?>">
-        </div>
 
-        <div class="col-6 py-2 mt-1">
-          <label for="meses"><?= mesesProducto ?></label>
-          <input disabled type="number" id="meses" name="meses" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->numeroMeses : (isset($mr) && is_object($mr) ? $mr->numeroMeses : ''); ?>">
-        </div>
+          <div class="col-6 py-2 mt-1">
+            <label for="precio"><?= precioProducto ?></label>
+            <input disabled type="number" id="precio" name="precio" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->precioProducto : (isset($mr) && is_object($mr) ? $mr->precioProducto : ''); ?>">
+          </div>
+
+          <div class="col-6 py-2 mt-1">
+            <label for="meses"><?= mesesProducto ?></label>
+            <input disabled type="number" id="meses" name="meses" class="form-control" value="<?= isset($proEdit) && is_object($proEdit) ? $proEdit->numeroMeses : (isset($mr) && is_object($mr) ? $mr->numeroMeses : ''); ?>">
+          </div>
         <?php endif; ?>
 
 

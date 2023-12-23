@@ -177,7 +177,7 @@ define('selectProducto', 'Seleccionar Deudor');
 define('selectDeudor', 'Seleccionar Deudor');
 define('cantidadActualStock', 'Cantidad de Stock Actual = ');
 define('addStock', 'Agregar / Disminuir Stock');
-define('mensajeCantidad', 'Ya pagó la deuda');
+define('mensajeCantidad', 'Revisa cuanto estás pagando');
 define('fechaVenciProducto', 'Fecha Vencimiento');
 define('loteStock', 'Lote');
 define('regisNuevoStock', 'Registrar Nuevo Stock');
