@@ -165,9 +165,9 @@ define('mesesProducto', '¿A cuantos meses?');
 define('numeroMeses', 'Numero de meses');
 define('interes', 'Interes');
 // Producto Alerts
-define('productoRegistrado', 'Deudor Registrado Exitosamente');
-define('productoEditado', 'Deudor Editado Exitosamente');
-define('productoEliminado', 'Deudor Eliminado Exitosamente');
+define('productoRegistrado', 'Prestamo Registrado Exitosamente');
+define('productoEditado', 'Prestamo Editado Exitosamente');
+define('productoEliminado', 'Prestamo Eliminado Exitosamente');
 
 // Stock
 define('tittleStock', 'Control de Stock');
