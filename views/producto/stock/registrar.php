@@ -45,9 +45,13 @@
             <select class="custom-select mr-sm-2 mt-1" name="usuario" id="usuario">
               <option><?= elija ?></option>
               <?php while ($p = $ptos->fetch_object()) : ?>
-            <?php if ($p->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
-                <option value="<?= $p->idusuarios; ?>"><?= $p->nombre . ' ' . $p->apellido; ?></option>
-              <?php endif; ?>
+                <?php if ($p->nombreRestaurante == $_SESSION['identity']->nombreRestaurante) : ?>
+                  <?php if ($p->precioProducto <= '0') : ?>
+                    
+                  <?php else : ?>
+                    <option hidden value="<?= $p->idusuarios; ?>"><?= $p->nombre . ' ' . $p->apellido; ?></option>
+                  <?php endif; ?>
+                <?php endif; ?>
               <?php endwhile; ?>
             </select>
           </div>
@@ -78,17 +82,3 @@
   <?php endif; ?>
   <script src="<?= baseUrl; ?>assets/js/validarStockEdit.js"></script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
