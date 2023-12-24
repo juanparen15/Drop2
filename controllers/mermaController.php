@@ -97,7 +97,7 @@ class MermaController
         }
         $merma->setPerdida($perdida);
         $productoId = $_POST['producto'];
-        $db = new mysqli('localhost', 'root', '', 'drop2');
+        $db = new mysqli('127.0.0.1', 'fabian', 'S0p0rt31957*a+', 'drop2');
         $consulta1 = "UPDATE producto SET precioProducto = $perdida WHERE idProducto = $productoId";
         $resultado1 = $db->query($consulta1);
 
